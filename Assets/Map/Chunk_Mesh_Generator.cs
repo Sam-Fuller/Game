@@ -26,30 +26,11 @@ public class Chunk_Mesh_Generator : MonoBehaviour {
         // UpdateMesh();
     }
 
-    void CreateShape() {
-        vertices = new Vector3[] {
-            new Vector3(0,0,1),
-            new Vector3(1,0,1),
-            new Vector3(0,1,1),
-        };
-
-        triangles = new int[]{
-            0, 1, 2
-        };
-    }
-
-    void UpdateMesh() {
-        mesh.Clear();
-
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-    }
-
-
     void BuildMesh() {
         MeshBuilder meshBuilder = new MeshBuilder();
 
         meshBuilder.addTriangle(0,0, 1,0, 0,1);
+        meshBuilder.addTriangle(1,1, 1,0, 0,1);
 
         meshBuilder.build(mesh);
     }

@@ -73,6 +73,8 @@ public class MeshBuilder {
     }
 
     public void build(Mesh mesh) {
+        mesh.Clear();
+        
         Vector3[] vertices = new Vector3[nodes.Count];
         int[] triangles = new int[nodes.Count * 3];
 
