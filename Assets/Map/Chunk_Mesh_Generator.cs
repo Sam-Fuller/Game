@@ -11,19 +11,12 @@ public class Chunk_Mesh_Generator : MonoBehaviour {
 
     Mesh mesh;
 
-    Vector3[] vertices;
-    int[] triangles;
-
     // Start is called before the first frame update
     void Start() {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
 
-
         BuildMesh();
-
-        // CreateShape();
-        // UpdateMesh();
     }
 
     void BuildMesh() {
