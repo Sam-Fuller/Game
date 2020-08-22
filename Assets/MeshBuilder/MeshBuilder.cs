@@ -11,14 +11,12 @@ using System.Collections.Specialized;
 class MeshNode {
     public float x { get; set; }
     public float y { get; set; }
-    public Color color { get; set; }
 
     public int pos;
 
-    public MeshNode(float x, float y, Color color) {
+    public MeshNode(float x, float y) {
         this.x = x;
         this.y = y;
-        this.color = color;
     }
 
     public override int GetHashCode() {
@@ -29,7 +27,7 @@ class MeshNode {
         if (this.GetType().Equals(o.GetType())) return false;
 
         MeshNode n = (MeshNode) o;
-        if (x == n.x && y == n.y && color.Equals(n.color)) return true;
+        if (x == n.x && y == n.y) return true;
 
         return false;
     }
@@ -50,8 +48,8 @@ public class MeshBuilder {
 
     List<MeshTri> tris = new List<MeshTri>();
 
-    MeshNode addMeshNode(float x, float y, Color color) {
-        MeshNode meshNode = new MeshNode(x, y, color);
+    MeshNode addMeshNode(float x, float y) {
+        MeshNode meshNode = new MeshNode(x, y);
 
         MeshNode result;
         if (nodes.TryGetValue(meshNode, out result)) {
@@ -66,23 +64,21 @@ public class MeshBuilder {
         tris.Add(tri);
     }
 
-    public void addTriangle(float ax, float ay, Color ac, float bx, float by, Color bc, float cx, float cy, Color cc) {
-        MeshNode a = addMeshNode(ax, ay, ac);
-        MeshNode b = addMeshNode(bx, by, bc);
-        MeshNode c = addMeshNode(cx, cy, cc);
+    public void addTriangle(float ax, float ay, float bx, float by, float cx, float cy) {
+        MeshNode a = addMeshNode(ax, ay);
+        MeshNode b = addMeshNode(bx, by);
+        MeshNode c = addMeshNode(cx, cy);
 
         tris.Add(new MeshTri(a, b, c));
     }
 
     public void build(Mesh mesh) {
         Vector3[] vertices = new Vector3[nodes.Count];
-        Color[] colors = new Color[nodes.Count];
         int[] triangles = new int[nodes.Count * 3];
 
         int i = 0;
         foreach(KeyValuePair<MeshNode, MeshNode> node in nodes) {
-            vertices[i] = new Vector3(node.Value.x, node.Value.y, 0);
-            colors[i] = node.Value.color;
+            vertices[i] = new Vector3(node.Value.x, node.Value.y, 1);
             node.Value.pos = i;
             i++;
         }
@@ -94,7 +90,6 @@ public class MeshBuilder {
         }
 
         mesh.vertices = vertices;
-        mesh.colors = colors;
         mesh.triangles = triangles;
     }
 }
