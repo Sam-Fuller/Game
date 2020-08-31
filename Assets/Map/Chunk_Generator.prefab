@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8845407836535869938}
   - component: {fileID: 8845407836535869837}
   m_Layer: 0
-  m_Name: Map Generator
+  m_Name: Chunk_Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
