@@ -37,9 +37,35 @@ class MeshTri {
     public MeshNode a, b, c;
 
     public MeshTri(MeshNode a, MeshNode b, MeshNode c) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
+
+		//take a as centre
+		float bx = b.x - a.x;
+		float by = b.y - a.y;
+
+		float cx = c.x - a.x;
+		float cy = c.y - a.y;
+
+		 
+		//calculate angle of b
+		float bth = (float) Math.Atan2(bx, by);
+
+		//calculate angle of c
+		float cth = (float) Math.Atan2(cx, cy);
+
+		//find if clockwise
+		bool clockwise = (cth - bth) > 0;
+
+		//set the nodes
+		if (clockwise) {
+			this.a = a;
+        	this.b = b;
+        	this.c = c;
+
+		} else {
+			this.b = a;
+			this.a = b;
+			this.c = c;
+		}
     }
 }
 
