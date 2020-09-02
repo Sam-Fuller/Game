@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSize: 300
-  perlinRoofHeight: 10
-  minimumRoofHeight: 5
+  floorPerlinMin: 5
+  floorPerlinMultiplier: 0.02
 --- !u!33 &13763045
 MeshFilter:
   m_ObjectHideFlags: 0

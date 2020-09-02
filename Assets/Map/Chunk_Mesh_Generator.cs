@@ -8,9 +8,7 @@ using static MeshBuilder;
 
 [RequireComponent(typeof(MeshFilter))]
 public class Chunk_Mesh_Generator : MonoBehaviour {
-    public int levelSize = 300;
-    public int perlinRoofHeight = 10;
-    public int minimumRoofHeight = 5;
+    public int levelSize;
 
     Mesh mesh; 
 
@@ -93,6 +91,8 @@ public class Chunk_Mesh_Generator : MonoBehaviour {
         return outPerlin;
     }
 
+    public int floorPerlinMin;
+    public float floorPerlinMultiplier;
     int[] generateFloorPerlin(int startNoise, int size){
         double[] PerlinSeed = new double[size];
 		double[] perlin = new double[size];
@@ -104,7 +104,7 @@ public class Chunk_Mesh_Generator : MonoBehaviour {
 
         PerlinSeed[0] = startNoise;
 
-        for (int stepSize = 1; stepSize < size; stepSize *= 2) {
+        for (int stepSize = size; stepSize < 1; stepSize /= 2) {
             for (int i = 0; i < size; i++) {
                 double low = PerlinSeed[stepSize*(int)(i/stepSize)];
 
@@ -120,7 +120,7 @@ public class Chunk_Mesh_Generator : MonoBehaviour {
 
         int[] outPerlin = new int[size];
         for (int i = 0; i < size; i++) {
-            outPerlin[i] = (int) perlin[i];
+            outPerlin[i] = (int) (perlin[i] * floorPerlinMultiplier) + floorPerlinMin;
         }
 
         return outPerlin;
@@ -132,6 +132,21 @@ public class Chunk_Mesh_Generator : MonoBehaviour {
         for (int x = 0; x < levelSize * 2; x++) {
             for (int y = 0; y < levelSize; y++) {
                 map[x, y] = true;
+            }
+        }
+
+        int[] floorPerlin = generateFloorPerlin(0, levelSize * 2);
+        int[] roofPerlin = generateFloorPerlin(0, levelSize * 2);
+
+        for (int x = 0; x < levelSize * 2; x++) {
+            for (int y = levelSize/2; y >= 0 && y > levelSize/2-floorPerlin[x]; y--) {
+                map[x, y] = false;
+            }
+        }
+
+        for (int x = 0; x < levelSize * 2; x++) {
+            for (int y = levelSize/2; y < levelSize && y < levelSize/2+roofPerlin[x]; y++) {
+                map[x, y] = false;
             }
         }
     }
