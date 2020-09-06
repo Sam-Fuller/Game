@@ -153,8 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSize: 300
-  floorPerlinMin: 5
-  floorPerlinMultiplier: 0.02
+  floorPerlinMin: 0
+  floorPerlinMultiplier: 2
+  floorPerlinWidth: 1
+  floorPerlinSharpness: 1
 --- !u!33 &13763045
 MeshFilter:
   m_ObjectHideFlags: 0

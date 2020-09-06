@@ -9,8 +9,8 @@ public class Map : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
        chunks.Add((Chunk_Mesh_Generator) Instantiate(chunk, new Vector3(0, 0, 0), Quaternion.identity));
-       chunks.Add((Chunk_Mesh_Generator) Instantiate(chunk, new Vector3(1, 0, 0), Quaternion.identity));
-       chunks.Add((Chunk_Mesh_Generator) Instantiate(chunk, new Vector3(0, 1, 0), Quaternion.identity));
+       //chunks.Add((Chunk_Mesh_Generator) Instantiate(chunk, new Vector3(1, 0, 0), Quaternion.identity));
+       //chunks.Add((Chunk_Mesh_Generator) Instantiate(chunk, new Vector3(0, 1, 0), Quaternion.identity));
     }
 
     bool started = false;
@@ -19,8 +19,8 @@ public class Map : MonoBehaviour {
         if (!started) {
             started = true;
             chunks[0].buildLevel(0);
-            chunks[1].buildLevel(0);
-            chunks[2].buildLevel(0);
+            //chunks[1].buildLevel(0);
+            //chunks[2].buildLevel(0);
         }
     }
 
